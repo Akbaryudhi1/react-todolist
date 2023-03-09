@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Button from "./components/Button";
+import Input from "./components/Input";
+import { useState } from "react";
 function App() {
+  const [todo, setTodo] = useState("");
+  const [data, setData] = useState([]);
+
+  const tambahKerja = () => {
+    setData([...data, todo]);
+    setTodo("");
+  };
+  const hapusKerja = (index) => {
+    console.log(index);
+    console.log("masuk");
+  };
+  const handleChange = (e) => {
+    setTodo(e.target.value);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data.map((item, index) => (
+        <div key={index}>
+          <h1>{item}</h1>
+          <Button name="Hapus" handleClick={hapusKerja(index)} />
+        </div>
+      ))}
+      <Input handleChange={handleChange} value={todo} />
+      <Button name="Click disini" handleClick={tambahKerja} />
     </div>
   );
 }
